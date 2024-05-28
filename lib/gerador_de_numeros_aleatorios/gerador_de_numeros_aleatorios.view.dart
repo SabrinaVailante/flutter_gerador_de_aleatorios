@@ -19,6 +19,8 @@ class _GeradorDeNumerosAleatoriosViewState
   final TextEditingController numbersController = TextEditingController();
   int numbers = 0;
 
+  bool _isOk = false;
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +43,8 @@ class _GeradorDeNumerosAleatoriosViewState
 
     if (min >= max) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('O valor mínimo deve ser menor que o valor máximo.')),
+        SnackBar(
+            content: Text('O valor mínimo deve ser menor que o valor máximo.')),
       );
       return;
     }
@@ -135,7 +138,7 @@ class _GeradorDeNumerosAleatoriosViewState
                     controller: numbersController,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
-                      prefixIcon: GestureDetector(
+                      suffixIcon: GestureDetector(
                         onTap: () {
                           setState(() {
                             numbers = int.tryParse(numbersController.text) ?? 0;
@@ -145,7 +148,7 @@ class _GeradorDeNumerosAleatoriosViewState
                         },
                         child: const Icon(Icons.add, color: Colors.white),
                       ),
-                      suffixIcon: GestureDetector(
+                      prefixIcon: GestureDetector(
                         onTap: () {
                           setState(() {
                             numbers = int.tryParse(numbersController.text) ?? 0;
@@ -166,6 +169,39 @@ class _GeradorDeNumerosAleatoriosViewState
                     keyboardType: TextInputType.number,
                   ),
                   const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Permite números repetidos?",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Switch(
+                          value: _isOk,
+                          onChanged: (value) {
+                            setState(() {
+                              _isOk = value;
+                            });
+                          })
+                    ],
+                  ),
+                  Text("Filtrar resultados", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
+                  const SizedBox(height: 10),
+                  DropdownButtonFormField(decoration: InputDecoration(filled: true, fillColor: Colors.white.withOpacity(0.2), border: OutlineInputBorder()),items: const [
+                    DropdownMenuItem(value: 1, child: Text("Todos")),
+                    DropdownMenuItem(value: 2, child: Text("Impar")),
+                    DropdownMenuItem(value: 3, child: Text("Par"))
+                  ], onChanged: (value) {}),
+                  Text("Organizar resultados", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
+                  const SizedBox(height: 10),
+                  DropdownButtonFormField(decoration: InputDecoration(filled: true, fillColor: Colors.white.withOpacity(0.2), border: OutlineInputBorder()),items: const [
+                    DropdownMenuItem(value: 1, child: Text("Todos")),
+                    DropdownMenuItem(value: 2, child: Text("I mpar")),
+                    DropdownMenuItem(value: 3, child: Text("Par"))
+                  ], onChanged: (value) {}),
                   Expanded(
                     child: Container(
                       alignment: Alignment.center,
@@ -177,13 +213,9 @@ class _GeradorDeNumerosAleatoriosViewState
                             "Número Gerado:",
                             style: TextStyle(fontSize: 24, color: Colors.white),
                           ),
-                          Text(
-                            numeroGerado.toString(),
-                            style: const TextStyle(
-                              fontSize: 36,
-                              color: Colors.white,
-                            ),
-                          ),
+                          Text(numeroGerado.toString(),
+                              style: const TextStyle(
+                                  fontSize: 36, color: Colors.white)),
                         ],
                       ),
                     ),
