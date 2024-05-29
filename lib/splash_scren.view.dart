@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 30),
+      duration: const Duration(seconds: 15),
       vsync: this,
     )..forward();
 
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeInOut,
     ));
 
-    Future.delayed(const Duration(seconds: 30), () {
+    Future.delayed(const Duration(seconds: 15), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomeScreenView()),

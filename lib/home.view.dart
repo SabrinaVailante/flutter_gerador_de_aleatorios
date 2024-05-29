@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gerador_de_numeros_aleatorios/gerador_de_numeros_aleatorios/gerador_de_numeros_aleatorios.view.dart';
+import 'package:flutter_gerador_de_numeros_aleatorios/sorteador_de_nomes/sorteador_de_nomes.view.dart';
 import 'package:lottie/lottie.dart';
 
 class HomeScreenView extends StatefulWidget {
@@ -46,7 +47,7 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                 PagesButtons(
                     'Números', GeradorDeNumerosAleatoriosView()),
                 PagesButtons(
-                    'Pessoas', GeradorDeNumerosAleatoriosView()),
+                    'Pessoas', SorteioDePessoasView()),
                 PagesButtons(
                     'Onde ir?', GeradorDeNumerosAleatoriosView()),
 

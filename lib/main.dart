@@ -15,8 +15,7 @@ class GeradorAleatorio extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(
-            255, 30, 2, 40)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromRGBO(113, 60, 248, 1.0)),
         useMaterial3: true,
 
       ),
