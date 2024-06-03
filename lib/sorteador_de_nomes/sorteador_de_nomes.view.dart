@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'carragamento_animadosorteio.view.dart';
+import 'sorteando_nomes.view.dart';
 
 class SorteioDePessoasView extends StatefulWidget {
   const SorteioDePessoasView({super.key});

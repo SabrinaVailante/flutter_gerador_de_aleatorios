@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_gerador_de_numeros_aleatorios/gerador_de_numeros_aleatorios/gerando_numeros.view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'carragamento_animado.view.dart';
+import '../sorteador_de_nomes/sorteando_nomes.view.dart';
 
 class GeradorDeNumerosAleatoriosView extends StatefulWidget {
   const GeradorDeNumerosAleatoriosView({super.key});
@@ -101,11 +102,9 @@ class _GeradorDeNumerosAleatoriosViewState
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
-          title: const Text(
-            "Gerador de Números",
-            style: TextStyle(color: Colors.white),
-          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          title: const Text("Gerador de Números",
+              style: TextStyle(color: Colors.white)),
           backgroundColor: const Color.fromARGB(255, 112, 60, 240),
           centerTitle: true,
         ),
@@ -134,34 +133,31 @@ class _GeradorDeNumerosAleatoriosViewState
                     Row(
                       children: [
                         Expanded(
-                          child: TextField(
-                            controller: minimumNumberController,
-                            decoration: InputDecoration(
-                              labelText: "Mínimo",
-                              labelStyle: const TextStyle(color: Colors.white),
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(0.2),
-                              border: const OutlineInputBorder(),
-                            ),
-                            style: const TextStyle(color: Colors.white),
-                            keyboardType: TextInputType.number,
-                          ),
-                        ),
+                            child: TextField(
+                                controller: minimumNumberController,
+                                decoration: InputDecoration(
+                                  labelText: "Mínimo",
+                                  labelStyle:
+                                      const TextStyle(color: Colors.white),
+                                  filled: true,
+                                  fillColor: Colors.white.withOpacity(0.2),
+                                  border: const OutlineInputBorder(),
+                                ),
+                                style: const TextStyle(color: Colors.white),
+                                keyboardType: TextInputType.number)),
                         const SizedBox(width: 20),
                         Expanded(
-                          child: TextField(
-                            controller: maximumNumberController,
-                            decoration: InputDecoration(
-                              labelText: "Máximo",
-                              labelStyle: const TextStyle(color: Colors.white),
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(0.2),
-                              border: const OutlineInputBorder(),
-                            ),
-                            style: const TextStyle(color: Colors.white),
-                            keyboardType: TextInputType.number,
-                          ),
-                        ),
+                            child: TextField(
+                                controller: maximumNumberController,
+                                decoration: InputDecoration(
+                                    labelText: "Máximo",
+                                    labelStyle:
+                                        const TextStyle(color: Colors.white),
+                                    filled: true,
+                                    fillColor: Colors.white.withOpacity(0.2),
+                                    border: const OutlineInputBorder()),
+                                style: const TextStyle(color: Colors.white),
+                                keyboardType: TextInputType.number))
                       ],
                     ),
                     const SizedBox(height: 20),
@@ -171,20 +167,10 @@ class _GeradorDeNumerosAleatoriosViewState
                     ),
                     const SizedBox(height: 10),
                     TextField(
+                      readOnly: true,
                       controller: numbersController,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              numbers =
-                                  int.tryParse(numbersController.text) ?? 1;
-                              numbers += 1;
-                              numbersController.text = numbers.toString();
-                            });
-                          },
-                          child: const Icon(Icons.add, color: Colors.white),
-                        ),
                         prefixIcon: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -197,6 +183,17 @@ class _GeradorDeNumerosAleatoriosViewState
                             });
                           },
                           child: const Icon(Icons.remove, color: Colors.white),
+                        ),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              numbers =
+                                  int.tryParse(numbersController.text) ?? 1;
+                              numbers += 1;
+                              numbersController.text = numbers.toString();
+                            });
+                          },
+                          child: const Icon(Icons.add, color: Colors.white),
                         ),
                         fillColor: Colors.white.withOpacity(0.2),
                         hintText: "1",
@@ -234,6 +231,7 @@ class _GeradorDeNumerosAleatoriosViewState
                           "Escolha",
                           style: TextStyle(color: Colors.white),
                         ),
+                        dropdownColor: const Color.fromRGBO(73, 72, 73, 1.0),
                         icon: const Icon(Icons.keyboard_arrow_down,
                             color: Colors.white),
                         decoration: InputDecoration(
@@ -241,9 +239,18 @@ class _GeradorDeNumerosAleatoriosViewState
                             fillColor: Colors.white.withOpacity(0.1),
                             border: const OutlineInputBorder()),
                         items: const [
-                          DropdownMenuItem(value: 1, child: Text("Todos", style: TextStyle(color: Colors.white),)),
-                          DropdownMenuItem(value: 2, child: Text("Par", style: TextStyle(color: Colors.white),)),
-                          DropdownMenuItem(value: 3, child: Text("Ímpar", style: TextStyle(color: Colors.white),)),
+                          DropdownMenuItem(
+                              value: 1,
+                              child: Text("Todos",
+                                  style: TextStyle(color: Colors.white))),
+                          DropdownMenuItem(
+                              value: 2,
+                              child: Text("Par",
+                                  style: TextStyle(color: Colors.white))),
+                          DropdownMenuItem(
+                              value: 3,
+                              child: Text("Ímpar",
+                                  style: TextStyle(color: Colors.white))),
                         ],
                         onChanged: (value) {
                           setState(() {
@@ -260,8 +267,9 @@ class _GeradorDeNumerosAleatoriosViewState
                     DropdownButtonFormField<int>(
                         hint: const Text(
                           "Escolha",
-                          style: TextStyle(color: Colors.blue),
+                          style: TextStyle(color: Colors.white),
                         ),
+                        dropdownColor: const Color.fromRGBO(73, 72, 73, 1.0),
                         icon: const Icon(Icons.keyboard_arrow_down,
                             color: Colors.white),
                         decoration: InputDecoration(
@@ -269,10 +277,18 @@ class _GeradorDeNumerosAleatoriosViewState
                             fillColor: Colors.white.withOpacity(0.1),
                             border: const OutlineInputBorder()),
                         items: const [
-                          DropdownMenuItem(value: 1, child: Text("Crescente")),
                           DropdownMenuItem(
-                              value: 2, child: Text("Decrescente")),
-                          DropdownMenuItem(value: 3, child: Text("Sorteio"))
+                              value: 1,
+                              child: Text("Crescente",
+                                  style: TextStyle(color: Colors.white))),
+                          DropdownMenuItem(
+                              value: 2,
+                              child: Text("Decrescente",
+                                  style: TextStyle(color: Colors.white))),
+                          DropdownMenuItem(
+                              value: 3,
+                              child: Text("Sorteio",
+                                  style: TextStyle(color: Colors.white))),
                         ],
                         onChanged: (value) {
                           setState(() {
@@ -296,8 +312,8 @@ class _GeradorDeNumerosAleatoriosViewState
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CarregamentoAnimadoView(
-                                      lista: listaNumeros)));
+                                  builder: (context) =>
+                                      GerandoNumerosView(lista: listaNumeros)));
                         },
                         child: const Text("Gerar",
                             style:

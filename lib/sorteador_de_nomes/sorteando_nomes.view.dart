@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gerador_de_numeros_aleatorios/gerador_de_numeros_aleatorios/resultado.view.dart';
+import 'package:flutter_gerador_de_numeros_aleatorios/gerador_de_numeros_aleatorios/numeros_gerados.view.dart';
+import 'package:flutter_gerador_de_numeros_aleatorios/sorteador_de_nomes/resultado_so_sorteio.view.dart';
 import 'package:lottie/lottie.dart';
 
 class CarregamentoAnimadoView extends StatefulWidget {
-  final List<int> lista;
+  final List<dynamic> lista;
 
   CarregamentoAnimadoView({required this.lista, Key? key}) : super(key: key);
 
@@ -20,7 +21,7 @@ class _CarregamentoAnimadoViewState extends State<CarregamentoAnimadoView> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => ResultadoView(lista: widget.lista),
+          builder: (context) => ResultadoSorteioView(lista: widget.lista),
         ),
       );
     });
@@ -32,9 +33,9 @@ class _CarregamentoAnimadoViewState extends State<CarregamentoAnimadoView> {
       backgroundColor: Color.fromRGBO(26, 26, 26, 1.0),
       body: Center(
         child: SizedBox(
-          height: 300,
-          width: 300,
-          child: Lottie.asset('assets/Lotties/dados.json', fit: BoxFit.cover),
+
+          height: double.infinity,
+          child: Lottie.asset('assets/Lotties/faces.json', fit: BoxFit.fitHeight),
         ),
       ),
     );
