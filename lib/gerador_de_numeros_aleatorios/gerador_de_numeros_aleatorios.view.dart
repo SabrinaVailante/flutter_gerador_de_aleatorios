@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_gerador_de_numeros_aleatorios/gerador_de_numeros_aleatorios/gerando_numeros.view.dart';
+import 'package:flutter_gerador_de_numeros_aleatorios/gerador_de_numeros_aleatorios/services/gerador_storage_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../sorteador_de_nomes/sorteando_nomes.view.dart';
 
 class GeradorDeNumerosAleatoriosView extends StatefulWidget {
   const GeradorDeNumerosAleatoriosView({super.key});
@@ -15,10 +15,9 @@ class GeradorDeNumerosAleatoriosView extends StatefulWidget {
 
 class _GeradorDeNumerosAleatoriosViewState
     extends State<GeradorDeNumerosAleatoriosView> {
+  GeradorStorageServices storageClass = GeradorStorageServices();
   int? numeroGerado = 0;
   final CHAVE_NUMERO_ALEATORIO = "numero_aleatorio";
-  final CHAVE_NUMERO_MINIMO = "numero_minimo";
-  final CHAVE_NUMERO_MAXIMO = "numero_maximo";
   final TextEditingController minimumNumberController = TextEditingController();
   final TextEditingController maximumNumberController = TextEditingController();
   final TextEditingController numbersController =
@@ -39,12 +38,15 @@ class _GeradorDeNumerosAleatoriosViewState
 
   void carregarDados() async {
     final storage = await SharedPreferences.getInstance();
+    int min = await storageClass.getNumeroMinimo();
+    int max = await storageClass.getNumeroMaximo();
     setState(() {
-      numeroGerado = storage.getInt(CHAVE_NUMERO_ALEATORIO) ?? 0;
+      numeroGerado = storage.getInt(CHAVE_NUMERO_ALEATORIO) ??
+          0; // instanciando na propria classe
       minimumNumberController.text =
-          (storage.getInt(CHAVE_NUMERO_MINIMO) ?? 0).toString();
+          min.toString(); // instanciando na classe services
       maximumNumberController.text =
-          (storage.getInt(CHAVE_NUMERO_MAXIMO) ?? 100).toString();
+          max.toString(); // instanciando na classe services
     });
   }
 
@@ -66,7 +68,6 @@ class _GeradorDeNumerosAleatoriosViewState
     final storage = await SharedPreferences.getInstance();
     setState(() {
       listaNumeros.clear();
-
       for (int i = 0; i < numbers; i++) {
         int novoNumero = gerarNumero();
         if (isImpar && novoNumero.isEven) {
@@ -90,11 +91,12 @@ class _GeradorDeNumerosAleatoriosViewState
       }
     });
 
-    storage.setInt(CHAVE_NUMERO_ALEATORIO, numeroGerado!);
-    storage.setInt(
-        CHAVE_NUMERO_MINIMO, int.parse(minimumNumberController.text));
-    storage.setInt(
-        CHAVE_NUMERO_MAXIMO, int.parse(maximumNumberController.text));
+    storage.setInt(CHAVE_NUMERO_ALEATORIO,
+        numeroGerado!); //deixei esse sem usar a classe pra eu me lembrar como que faz direto .
+    storageClass.setNumeroMinimo(
+        int.parse(minimumNumberController.text)); //usando a classe services
+    storageClass.setNumeroMaximo(
+        int.parse(maximumNumberController.text)); //usando a classe services
   }
 
   @override
