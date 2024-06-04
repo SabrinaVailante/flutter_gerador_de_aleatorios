@@ -44,13 +44,8 @@ class _HomeScreenViewState extends State<HomeScreenView> {
                         fontSize: 30,
                         fontWeight: FontWeight.w600)),
                 const SizedBox(height: 20),
-                PagesButtons(
-                    'Números', GeradorDeNumerosAleatoriosView()),
-                PagesButtons(
-                    'Pessoas', SorteioDePessoasView()),
-                PagesButtons(
-                    'Onde ir?', GeradorDeNumerosAleatoriosView()),
-
+                PagesButtons('Números', GeradorDeNumerosAleatoriosView()),
+                PagesButtons('Pessoas', SorteioDePessoasView()),
               ],
             ),
           )
