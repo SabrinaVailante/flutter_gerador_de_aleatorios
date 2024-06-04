@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gerador_de_numeros_aleatorios/gerador_de_numeros_aleatorios/numeros_gerados.view.dart';
-import 'package:flutter_gerador_de_numeros_aleatorios/sorteador_de_nomes/resultado_so_sorteio.view.dart';
+import 'package:flutter_gerador_de_numeros_aleatorios/sorteador_de_nomes/resultado_do_sorteio.view.dart';
 import 'package:lottie/lottie.dart';
 
-class CarregamentoAnimadoView extends StatefulWidget {
+class SorteandoNomesView extends StatefulWidget {
   final List<dynamic> lista;
 
-  CarregamentoAnimadoView({required this.lista, Key? key}) : super(key: key);
+  SorteandoNomesView({required this.lista, Key? key}) : super(key: key);
 
   @override
-  State<CarregamentoAnimadoView> createState() =>
-      _CarregamentoAnimadoViewState();
+  State<SorteandoNomesView> createState() =>
+      _SorteandoNomesViewState();
 }
 
-class _CarregamentoAnimadoViewState extends State<CarregamentoAnimadoView> {
+class _SorteandoNomesViewState extends State<SorteandoNomesView> {
   @override
   void initState() {
     super.initState();
@@ -21,7 +21,7 @@ class _CarregamentoAnimadoViewState extends State<CarregamentoAnimadoView> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => ResultadoSorteioView(lista: widget.lista),
+          builder: (context) => NomesSorteadosView(lista: widget.lista),
         ),
       );
     });

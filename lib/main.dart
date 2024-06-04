@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gerador_de_numeros_aleatorios/splash_scren.view.dart';
 
-import 'home.view.dart';
 
 void main() {
   runApp(const GeradorAleatorio());

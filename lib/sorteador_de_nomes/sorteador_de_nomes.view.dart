@@ -1,6 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'sorteando_nomes.view.dart';
 
 class SorteioDePessoasView extends StatefulWidget {
@@ -18,14 +18,32 @@ class _SorteioDePessoasViewState extends State<SorteioDePessoasView> {
   bool _isOk = false;
   List<String> listaNomes = [];
   bool isOrdemAlfabetica = false;
-  List<dynamic> listaSorteada = [];
+  List<String> listaSorteada = [];
+  int quantidadeDeNomes = 0;
 
   @override
   void initState() {
     super.initState();
+    carregarDados();
   }
+
+  Future<void> carregarDados() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      listaNomes = prefs.getStringList('nomes') ?? [];
+      isOrdemAlfabetica = prefs.getBool('isOrdemAlfabetica') ?? false;
+    });
+  }
+
+  Future<void> salvarDados() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('nomes', listaNomes);
+    prefs.setBool('isOrdemAlfabetica', isOrdemAlfabetica);
+    prefs.setInt('quantidadeDeNomes', quantidadeDeNomes);
+  }
+
   void sortearNomes() {
-    listaNomes.clear();
+    listaSorteada.clear();
     final random = Random();
     for (int i = 0; i < numbers; i++) {
       int index = random.nextInt(listaNomes.length);
@@ -128,17 +146,40 @@ class _SorteioDePessoasViewState extends State<SorteioDePessoasView> {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              const  Color.fromARGB(255, 112, 60, 240)),
+                          shape: MaterialStateProperty.all<
+                              RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0))),
+                          minimumSize:
+                          MaterialStateProperty.all(const Size(180, 60))),
                       onPressed: () {
                         setState(() {
-                          listaNomes = nomesController.text
-                              .split(',')
-                              .map((e) => e.trim())
+                          // Divide o texto em uma lista de nomes
+                          List<String> novosNomes =
+                              nomesController.text.split(',');
+                          novosNomes = novosNomes
+                              .map((nome) => nome.trim())
+                              .where((nome) => nome.isNotEmpty)
                               .toList();
+                          // Remove espaços em branco ao redor de cada nome
+                          for (int i = 0; i < novosNomes.length; i++) {
+                            novosNomes[i] = novosNomes[i].trim();
+                          }
+                          // Adiciona os novos nomes à lista existente
+                          listaNomes.addAll(novosNomes);
+                          quantidadeDeNomes = listaNomes.length;
+                          // Limpa o campo de texto
                           nomesController.clear();
+                          // Salva os dados em SharedPreferences
+                          salvarDados();
                         });
+                        // Imprime a lista de nomes atualizada
                         print(listaNomes);
                       },
-                      child: const Text("Adicionar nome"),
+                      child: const Text("Adicionar nome", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,14 +210,18 @@ class _SorteioDePessoasViewState extends State<SorteioDePessoasView> {
                             onChanged: (value) {
                               setState(() {
                                 isOrdemAlfabetica = value;
+                                salvarDados(); // Salva a preferência de ordem alfabética
                               });
                             })
                       ],
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      "Lista de Nomes",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    Text(
+                      '${quantidadeDeNomes.toString()} Nomes na Lista',
+                      style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 20),
                     Padding(
@@ -188,32 +233,55 @@ class _SorteioDePessoasViewState extends State<SorteioDePessoasView> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                const Color.fromARGB(255, 112, 60, 240)),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0))),
-                            minimumSize:
-                                MaterialStateProperty.all(const Size(200, 80))),
-                        onPressed: () {
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    const Color.fromARGB(255, 229, 223, 235)),
+                                shape:
+                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0))),
+                                minimumSize: MaterialStateProperty.all(
+                                    const Size(180, 60))),
+                            onPressed: (){
                           setState(() {
-                            listaNomes.sort();
-                            if (isOrdemAlfabetica) {
-                              listaNomes.sort();
-                            }
+                            listaNomes.clear();
+                            salvarDados();
                           });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CarregamentoAnimadoView(
-                                      lista: listaNomes)));
-                        },
-                        child: const Text("Sortear",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20)))
+                        }, child: const Text("Limpar Lista", style: TextStyle(color: Color.fromRGBO(
+                            120, 116, 126, 1.0), fontSize: 20))),
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    const Color.fromARGB(255, 112, 60, 240)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0))),
+                                minimumSize:
+                                    MaterialStateProperty.all(const Size(180, 60))),
+                            onPressed: () {
+                              setState(() {
+                                listaNomes.sort();
+                                if (isOrdemAlfabetica) {
+                                  listaNomes.sort();
+                                }
+                              });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SorteandoNomesView(lista: listaNomes)));
+                            },
+                            child: const Text("Sortear",
+                                style:
+                                    TextStyle(color: Colors.white, fontSize: 20))),
+                      ],
+                    )
                   ],
                 ),
               ),
