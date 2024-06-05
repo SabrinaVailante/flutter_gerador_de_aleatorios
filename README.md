@@ -19,13 +19,14 @@ Bem-vindo ao Gerador de Aleatórios! Este é um projeto divertido desenvolvido e
 Este projeto foi desenvolvido com o intuito de explorar e aprender mais sobre o uso de Shared Preferences em Flutter. Além disso, também queríamos criar uma ferramenta divertida e útil para quem precisa de uma ajudinha extra em sorteios ou decisões aleatórias do dia a dia.
 
 ## Capturas de Tela
+<div style="display:flex; justify-content:space-around;">
+<img src="Screenshot_20240605_105433.png" alt="Screenshot 1" width="200"/>
+<img src="Screenshot_20240605_105443.png" alt="Screenshot 1" width="200"/>
+<img src="Screenshot_20240605_105523.png" alt="Screenshot 1" width="200"/>
+<img src="Screenshot_20240605_105532.png" alt="Screenshot 1" width="200"/>
+<img src="Screenshot_20240605_105628.png" alt="Screenshot 1" width="200"/>
 
-![Screenshot 1](Screenshot_20240605_105433.png)
-![Screenshot 1](Screenshot_20240605_105443.png)
-![Screenshot 1](Screenshot_20240605_105523.png)
-![Screenshot 1](Screenshot_20240605_105532.png)
-![Screenshot 1](Screenshot_20240605_105628.png)
-
+</div>
 
 ## Como Usar
 
