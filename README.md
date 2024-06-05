@@ -20,6 +20,11 @@ Este projeto foi desenvolvido com o intuito de explorar e aprender mais sobre o 
 
 ## Capturas de Tela
 
+![Screenshot 1](Screenshot_20240605_105433.png)
+![Screenshot 1](Screenshot_20240605_105443.png)
+![Screenshot 1](Screenshot_20240605_105523.png)
+![Screenshot 1](Screenshot_20240605_105532.png)
+![Screenshot 1](Screenshot_20240605_105628.png)
 
 
 ## Como Usar
