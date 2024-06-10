@@ -24,8 +24,8 @@ Este projeto foi desenvolvido com o intuito de explorar e aprender mais sobre o 
 <img src="Screenshot_20240605_105443.png" alt="Screenshot 1" width="100"/>
 <img src="Screenshot_20240605_105523.png" alt="Screenshot 1" width="100"/>
 <img src="Screenshot_20240605_105532.png" alt="Screenshot 1" width="100"/>
-<img src="Screenshot_20240605_105628.png" alt="Screenshot 1" width="100"/>
-
+<img src="Screenshot_20240610_105829.png" alt="Screenshot 1" width="100"/>
+<img src="Screenshot_20240610_110047.png" alt="Screenshot 1" width="100"/>
 </div>
 
 ## Como Usar
