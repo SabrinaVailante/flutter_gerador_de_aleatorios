@@ -148,27 +148,25 @@ class _SorteioDePessoasViewState extends State<SorteioDePessoasView> {
                     ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(
-                              const  Color.fromARGB(255, 112, 60, 240)),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0))),
+                              const Color.fromARGB(255, 112, 60, 240)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0))),
                           minimumSize:
-                          MaterialStateProperty.all(const Size(180, 60))),
+                              MaterialStateProperty.all(const Size(180, 60))),
                       onPressed: () {
                         setState(() {
-                          // Divide o texto em uma lista de nomes
                           List<String> novosNomes =
                               nomesController.text.split(',');
                           novosNomes = novosNomes
                               .map((nome) => nome.trim())
                               .where((nome) => nome.isNotEmpty)
                               .toList();
-                          // Remove espaços em branco ao redor de cada nome
                           for (int i = 0; i < novosNomes.length; i++) {
                             novosNomes[i] = novosNomes[i].trim();
                           }
-                          // Adiciona os novos nomes à lista existente
                           listaNomes.addAll(novosNomes);
                           quantidadeDeNomes = listaNomes.length;
                           // Limpa o campo de texto
@@ -179,7 +177,13 @@ class _SorteioDePessoasViewState extends State<SorteioDePessoasView> {
                         // Imprime a lista de nomes atualizada
                         print(listaNomes);
                       },
-                      child: const Text("Adicionar nome", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
+                      child: const Text(
+                        "Adicionar nome",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -246,14 +250,17 @@ class _SorteioDePessoasViewState extends State<SorteioDePessoasView> {
                                             borderRadius:
                                                 BorderRadius.circular(15.0))),
                                 minimumSize: MaterialStateProperty.all(
-                                    const Size(180, 60))),
-                            onPressed: (){
-                          setState(() {
-                            listaNomes.clear();
-                            salvarDados();
-                          });
-                        }, child: const Text("Limpar Lista", style: TextStyle(color: Color.fromRGBO(
-                            120, 116, 126, 1.0), fontSize: 20))),
+                                    const Size(150, 60))),
+                            onPressed: () {
+                              setState(() {
+                                listaNomes.clear();
+                                salvarDados();
+                              });
+                            },
+                            child: const Text("Limpar Lista",
+                                style: TextStyle(
+                                    color: Color.fromRGBO(120, 116, 126, 1.0),
+                                    fontSize: 20))),
                         ElevatedButton(
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
@@ -261,25 +268,23 @@ class _SorteioDePessoasViewState extends State<SorteioDePessoasView> {
                                 shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15.0))),
-                                minimumSize:
-                                    MaterialStateProperty.all(const Size(180, 60))),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0))),
+                                minimumSize: MaterialStateProperty.all(
+                                    const Size(150, 60))),
                             onPressed: () {
                               setState(() {
-                                listaNomes.sort();
-                                if (isOrdemAlfabetica) {
-                                  listaNomes.sort();
-                                }
+                                sortearNomes();
                               });
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          SorteandoNomesView(lista: listaNomes)));
+                                      builder: (context) => SorteandoNomesView(
+                                          lista: listaSorteada)));
                             },
                             child: const Text("Sortear",
-                                style:
-                                    TextStyle(color: Colors.white, fontSize: 20))),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20))),
                       ],
                     )
                   ],
